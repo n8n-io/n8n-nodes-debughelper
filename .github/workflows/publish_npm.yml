@@ -22,13 +22,8 @@ jobs:
               args: [--frozen-lockfile, --strict-peer-dependencies]
             - args: [--global, gulp, typescript]
       - run: pnpm run build
-      - name: setup git config
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-      - run: npm whoami
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm run publish:npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          access: public
+          greater-version-only: true
