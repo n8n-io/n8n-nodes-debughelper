@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-debughelper",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "",
 	"keywords": [
 		"n8n-community-node-package"
@@ -43,10 +43,12 @@
 		"@typescript-eslint/parser": "~5.45",
 		"eslint-plugin-n8n-nodes-base": "^1.11.0",
 		"gulp": "^4.0.2",
-		"minifaker": "^1.34.1",
 		"n8n-core": "*",
 		"n8n-workflow": "*",
 		"prettier": "^2.7.1",
 		"typescript": "~4.8.4"
+	},
+	"dependencies": {
+		"minifaker": "^1.34.1"
 	}
 }
