@@ -94,7 +94,6 @@ export class DebugHelper implements INodeType {
 				type: 'string',
 				default: 'Node has thrown an error',
 				description: 'The message to send as part of the error',
-				noDataExpression: true,
 				displayOptions: {
 					show: {
 						category: ['throwError'],
@@ -107,7 +106,6 @@ export class DebugHelper implements INodeType {
 				type: 'number',
 				default: 10,
 				description: 'The approximate amount of memory to generate. Be generous...',
-				noDataExpression: true,
 				displayOptions: {
 					show: {
 						category: ['oom'],
@@ -157,9 +155,9 @@ export class DebugHelper implements INodeType {
 				name: 'randomDataSeed',
 				type: 'string',
 				default: '',
+				placeholder: 'Leave empty for random seed',
 				description:
 					'If set, seed to use for generating the data (same seed will generate the same data)',
-				noDataExpression: true,
 				displayOptions: {
 					show: {
 						category: ['randomData'],
@@ -172,7 +170,18 @@ export class DebugHelper implements INodeType {
 				type: 'number',
 				default: 10,
 				description: 'The number of random data items to generate into an array',
-				noDataExpression: true,
+				displayOptions: {
+					show: {
+						category: ['randomData'],
+					},
+				},
+			},
+			{
+				displayName: 'Output as single array',
+				name: 'randomDataSingleArray',
+				type: 'boolean',
+				default: false,
+				description: 'Output a single array instead of multiple items',
 				displayOptions: {
 					show: {
 						category: ['randomData'],
@@ -224,11 +233,17 @@ export class DebugHelper implements INodeType {
 						const randomDataType = this.getNodeParameter('randomDataType', 0) as string;
 						const randomDataCount = this.getNodeParameter('randomDataCount', 0) as number;
 						const randomDataSeed = this.getNodeParameter('randomDataSeed', 0) as string;
+						const randomDataSingleArray = this.getNodeParameter(
+							'randomDataSingleArray',
+							0,
+						) as boolean;
 						const newItem: INodeExecutionData = {
 							json: {},
 							pairedItem: items[i].pairedItem,
 						};
-						setSeed(randomDataSeed);
+						if (randomDataSeed !== '') {
+							setSeed(randomDataSeed);
+						}
 
 						let randomFn: () => any = generateRandomUser;
 						switch (randomDataType) {
@@ -252,8 +267,17 @@ export class DebugHelper implements INodeType {
 								break;
 						}
 						const generatedItems = mfArray(randomDataCount, randomFn);
-						newItem.json = { generatedItems };
-						returnData.push(newItem);
+						if (randomDataSingleArray) {
+							newItem.json = { generatedItems };
+							returnData.push(newItem);
+						} else {
+							for (const generatedItem of generatedItems) {
+								returnData.push({
+									json: generatedItem,
+									pairedItem: items[i].pairedItem,
+								});
+							}
+						}
 						break;
 					default:
 						break;
