@@ -21,7 +21,7 @@ jobs:
           run_install: |
             - recursive: true
               args: [--frozen-lockfile, --strict-peer-dependencies]
-            - args: [--global, gulp, typescript]
+            - args: [--global, gulp, eslint, typescript]
       - run: pnpm run build
       - uses: JS-DevTools/npm-publish@v1
         with:
