@@ -23,8 +23,8 @@ export class DebugHelper implements INodeType {
 		name: 'debugHelper',
 		icon: 'file:DebugHelper.svg',
 		group: ['output'],
-		subtitle: '={{$parameter["category"] + ": " + $parameter["operation"]}}',
-		description: 'Causes problems intentionally',
+		subtitle: '={{$parameter["category"]}}',
+		description: 'Causes problems intentionally and generates useful data for debugging',
 		version: 1,
 		defaults: {
 			name: 'DebugHelper',
