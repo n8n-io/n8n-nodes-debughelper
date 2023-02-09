@@ -23,8 +23,8 @@ export const generateGarbageMemory = (sizeInMB: number, onHeap: boolean = true) 
 		const array = new Uint8Array(size);
 		array.fill(0);
 	}
-	const used = process.memoryUsage().heapUsed / 1024 / 1024;
-	const external = process.memoryUsage().external / 1024 / 1024;
-	console.log(`heap: ${used} MB / external: ${external} MB`);
+	// const used = process.memoryUsage().heapUsed / 1024 / 1024;
+	// const external = process.memoryUsage().external / 1024 / 1024;
+	// console.log(`heap: ${used} MB / external: ${external} MB`);
 	return { ...process.memoryUsage() };
 };

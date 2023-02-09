@@ -18,13 +18,6 @@ import {
 import 'minifaker/locales/en';
 
 export function generateRandomUser() {
-	console.log({
-		uid: uuid.v4(),
-		email: email(),
-		firstname: firstName(),
-		lastname: lastName(),
-		password: password(),
-	});
 	return {
 		uid: uuid.v4(),
 		email: email(),
@@ -47,10 +40,6 @@ export function generateRandomAddress() {
 }
 
 export function generateRandomEmail() {
-	console.log({
-		email: email(),
-		confirmed: boolean(),
-	});
 	return {
 		email: email(),
 		confirmed: boolean(),
